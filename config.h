@@ -22,19 +22,19 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
-
+static const char *tags[] = { "CMUS", "ST", "Firefox", "Code", "5", "6", "7", "8" };
+/* Ungerardo doesn't want, needs to be initialized */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "TelegramDesktop",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "obs",                NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Lutris",             NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "firefox",   		NULL,     NULL,           1 << 2,    0,          0,          -1,        -1 },
-	{ "St",                 NULL,     NULL,           0,         0,          1,           0,        -1 },
+//	{ "TelegramDesktop",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+//	{ "obs",                NULL,     NULL,           0,         1,          0,           0,        -1 },
+//	{ "Lutris",             NULL,     NULL,           0,         1,          0,           0,        -1 },
+//	{ "firefox",   		NULL,     NULL,           1 << 2,    0,          0,          -1,        -1 },
+//	{ "St",                 NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,                 NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -84,7 +84,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,  	   setlayout,      {0} },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,			XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,                       XK_Tab,    cycleview,      {.i = +1} },
+        { MODKEY,                       XK_backslash, cycleview,      {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_Tab,    view,           {0 } },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -103,7 +105,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,		XK_q,      quit,           {0} },
 };
 
