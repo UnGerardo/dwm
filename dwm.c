@@ -756,20 +756,16 @@ void cycleview(const Arg *arg) {
   #endif // SCRATCHPADS_PATCH
 
   if (arg->i > 0) { // left circular shift
-    do {
-      shifted.ui = (shifted.ui << arg->i) | (shifted.ui >> (LENGTH(tags) - arg->i));
-      #if SCRATCHPADS_PATCH
-      shifted.ui &= ~SPTAGMASK;
-      #endif // SCRATCHPADS_PATCH
-   } while (tagmask && !(shifted.ui & tagmask));
+    shifted.ui = (shifted.ui << arg->i) | (shifted.ui >> (LENGTH(tags) - arg->i));
+    #if SCRATCHPADS_PATCH
+    shifted.ui &= ~SPTAGMASK;
+    #endif // SCRATCHPADS_PATCH
   }
   else { // right circular shift
-    do {
-      shifted.ui = (shifted.ui >> (- arg->i) | shifted.ui << (LENGTH(tags) + arg->i));
-      #if SCRATCHPADS_PATCH
-      shifted.ui &= ~SPTAGMASK
-      #endif // SCRATCHPADS_PATCH
-    } while (tagmask && !(shifted.ui & tagmask));
+    shifted.ui = (shifted.ui >> (- arg->i) | shifted.ui << (LENGTH(tags) + arg->i));
+    #if SCRATCHPADS_PATCH
+    shifted.ui &= ~SPTAGMASK
+    #endif // SCRATCHPADS_PATCH
   }
   view(&shifted);
 }
